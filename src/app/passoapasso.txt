@@ -1,0 +1,76 @@
+1) Criar um novo projeto Blank
+
+2) No cmd "npm install @capacitor/camera @capacitor/preferences @capacitor/filesystem"
+
+3) Ainda no cmd "npm install @ionic/pwa-elements"
+
+4) Importe o @ionic/pwa-elements no src/main.ts ("import { defineCustomElements } from '@ionic/pwa-elements/loader';" e no fim, após todo o texto "defineCustomElements(window);"
+
+5) No cmd, digite "ng add @angular/pwa"
+
+6) ionic build --prod
+
+7) Adicione dentro do content do home/home.page.html 
+
+    "<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>"
+
+8) No cmd digite "ionic g service services/foto"
+
+9) Em services/foto.service.ts importe 
+
+"import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Preferences } from '@capacitor/preferences';"
+
+10) Crie uma interface em App, botão direito, nova pasta, com o nome "models" ou "interface"
+
+11) Botão direito na pasta criada, novo arquivo, digite "Foto.interface.ts"
+
+12) Dentro do arquivo, digite:
+ 
+    export interface Foto {
+    filepath: string;
+    webviewPath?: string;
+  }
+
+13) Crie uma variavel para guardar as fotos tiradas dentro da pasta foto.service.ts:
+
+"fotos: Foto[] = []"
+
+14) Crie uma pasta privada para armazenar as fotos no sistema físico(pasta):
+
+"private FOTO_ARMAZENAMENTO: string = 'fotos';
+
+constructor(){ }
+
+15) Crie o async, logo abaixo do constructor(){ }:
+
+async tirarFoto(){
+    
+    const fotoCapturada = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100
+    });
+  } 
+
+16) Em home.page.ts, adicione ao constructor:
+
+constructor(public fotoService: FotoService) {}
+
+	tirarFoto() {
+	   this.fotoService.tirarFoto();
+  }
+}
+
+17) Em cima, faça o import:
+
+import { FotoService } from '../services/foto.service';
+
+18) No home, em botão em frente a cor, adicione:
+
+(click)="tirarFoto"()
