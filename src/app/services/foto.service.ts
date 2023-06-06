@@ -5,8 +5,6 @@ import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 import { Platform } from '@ionic/angular';
-import { rejects } from 'assert';
-import { resolve } from 'dns';
 import { Foto } from '../models/Foto.interface';
 
 @Injectable({

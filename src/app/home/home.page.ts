@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { threadId } from 'worker_threads';
+import { ActionSheetController } from '@ionic/angular';
 import { Foto } from '../models/Foto.interface';
 import { FotoService } from '../services/foto.service';
+
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,9 @@ import { FotoService } from '../services/foto.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  actionSheetController: any;
+  
 
-  constructor(public fotoService: FotoService) {}
+  constructor(public fotoService: FotoService, public actionSheetController: ActionSheetController) {}
   tirarFoto() {
     this.fotoService.tirarFoto();
   }
@@ -26,7 +27,7 @@ export class HomePage {
       buttons: [{
         text: 'Delete',
         role: 'destructive',
-        ion: 'trash',
+        icon: 'trash',
         handler: () => {
           this.fotoService.deletePicture(foto, position);
         }
