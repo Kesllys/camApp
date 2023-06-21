@@ -10,7 +10,15 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule)
   },
+  {
+    path: 'face-modal',
+    loadChildren: () => import('./face-modal/face-modal.module').then( m => m.FaceModalPageModule)
+  },
+
 ];
 
 @NgModule({
